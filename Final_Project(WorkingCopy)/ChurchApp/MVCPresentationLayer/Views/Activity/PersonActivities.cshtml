@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DataObjects.ActivityVM>
+
+
+
+<h2>@ViewBag.Title</h2>
+<h4>@ViewBag.ErrorMessage</h4>
+<p>
+    @if (ViewBag.IsPersonActivities)
+    {
+        @Html.ActionLink("Show availbale activities", "PersonActivities", new { email = User.Identity.Name, isPersonActivities = false })
+    }
+    else
+    {
+        @Html.ActionLink("Show my activities", "PersonActivities", new { email = User.Identity.Name, isPersonActivities = true })
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationName)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActivityTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationName)
+        </td>
+        
+        <td>
+            @item.Start.ToShortDateString() @item.Start.ToShortTimeString()
+        </td>
+        
+        <td>
+            @Html.ActionLink("Activity Details", "ActivityDetails", new { activityID = item.ActivityID}, new { @class = "btn btn-default" })
+            @if (!ViewBag.IsPersonActivities)
+            {
+                @Html.ActionLink("Sign Up", "ActivitySignUpCancel", new { signUp = true, activityID = item.ActivityID, email = User.Identity.Name }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("Cancel", "ActivitySignUpCancel", new { signUp = false, activityID = item.ActivityID, email = User.Identity.Name }, new { @class = "btn btn-default" })
+            }
+        </td>
+    </tr>
+}
+
+</table>

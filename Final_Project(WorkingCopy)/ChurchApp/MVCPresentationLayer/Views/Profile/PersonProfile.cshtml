@@ -1,0 +1,220 @@
+﻿@model DataObjects.ProfileObject
+
+
+
+<h2>@ViewBag.Title</h2>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading" style="font-size:14pt;"><strong>Personal Information</strong></div>
+    <div>
+        <br/>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.Dob)
+            </dt>
+
+            <dd>
+                @Model.Person.Dob.ToShortDateString()
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.PhoneNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.Address1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.Address1)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.Address2)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.Address2)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.City)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.City)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.State)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.State)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Person.Zip)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Person.Zip)
+            </dd>
+
+
+        </dl>
+    </div>
+</div>
+
+
+
+
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading" style="font-size:14pt;"><strong>Ministries you are signed up for</strong></div>
+
+
+        <ul class="list-group">
+
+            @foreach (var item in Model.Groups)
+            {
+                <li class="list-group-item">@item</li>
+            }
+            @if (Model.Groups.Count == 0)
+            {
+                <li class="list-group-item">You are not signed up for any Ministries</li>
+            }
+            <li class="list-group-item">
+                @Html.ActionLink("Ministry Sign-up", "PersonGroups", "Group", null, new { @class = "btn btn-default" })
+            </li>
+        </ul>
+    </div>
+
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="font-size:14pt;">
+            <strong>Acitvities you are signed up to attend</strong>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Activity Name
+                </th>
+                <th>
+                    Activity Type
+                </th>
+                <th>
+                    Location Name
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Activities)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(i => item.ActivityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.ActivityTypeID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.LocationName)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td>
+                    @Html.ActionLink("My Activity Sign-up", "PersonActivities", "Activity", new { email = User.Identity.Name }, new { @class = "btn btn-default" })
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+
+
+
+
+
+    @*<hr />
+        <h3>Acitvities you are signed up for</h3>
+        <hr />
+        <table class="table">
+            <tr>
+                <th>
+                    Activity Name
+                </th>
+                <th>
+                    Activity Type
+                </th>
+                <th>
+                    Location Name
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Activities)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(i => item.ActivityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.ActivityTypeID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.LocationName)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <p>
+            @Html.ActionLink("My Activity Sign-up", "PersonActivities", "Activity", new { email = User.Identity.Name }, null)
+        </p>*@

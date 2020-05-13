@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DataObjects.ElectionVM>
+
+
+<h2>@ViewBag.Title</h2>
+<div>
+    @Html.ActionLink("Start Election Voting", "DelegateLogIn", null , new { @class = "btn btn-default"})
+</div>
+<p>
+    @Html.ActionLink("Create New Election", "Create") 
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ElectionID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ElectionID }) |
+            @Html.ActionLink("Activate/Deactivate" , "ActivateDeactivateElection", new { id=item.ElectionID })
+        </td>
+    </tr>
+}
+
+</table>
+<p>@Html.ActionLink("Show Inactive Elections", "Index", new { active = false })</p>
+<p>@Html.ActionLink("Show Active Elections", "Index", new { active = true })</p>

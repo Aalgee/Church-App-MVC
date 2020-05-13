@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DataObjects.ElectionDelegate>
+
+@{
+    
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateDelegate")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasVotedForGrants)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HasVotedForElections)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasVotedForGrants)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasVotedForElections)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditDelegate", new { id = item.DelegateID }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @if (ViewBag.Active)
+            {
+                @Html.ActionLink("Deactivate", "DeactivateReactivateDelegate", new { delegateID = item.DelegateID })
+            }
+            else
+            {
+                @Html.ActionLink("Reactivate", "DeactivateReactivateDelegate", new { delegateID = item.DelegateID })
+            }
+            
+        </td>
+        <td>
+            @Html.ActionLink("Update Pin", "UpdateDelegatePin", new { delegateID = item.DelegateID }, new { @class = "btn btn-default"})
+        </td>
+    </tr>
+    
+}
+
+</table>
+<p>
+    @if (ViewBag.Active)
+    {
+        @Html.ActionLink("Show Inactive Delegates", "Index", new { active = false })
+    }
+    else
+    {
+        @Html.ActionLink("Show Active Delegates", "Index", new { active = true })
+    }
+</p>

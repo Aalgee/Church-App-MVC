@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DataObjects.Group>
+
+
+<h2>@ViewBag.Title</h2>
+<h4>@ViewBag.Message</h4>
+<div class="panel panel-default">
+    <div class="panel-heading" style="font-size:14pt;"><strong>@ViewBag.Subtitle</strong></div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @if (ViewBag.Active)
+                    {
+                        @Html.ActionLink("Cancel Membership", "SignUpCancelGroup", new { groupID = item.GroupID, active = true }, new { @class = "btn btn-default" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Sign-up", "SignUpCancelGroup", new { groupID = item.GroupID, active = false }, new { @class = "btn btn-default" })
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                @if (ViewBag.Active)
+                {
+                    @Html.ActionLink("Ministry Sign-up", "PersonGroups", new { active = false }, new { @class = "btn btn-default" })
+                }
+                else
+                {
+                    @Html.ActionLink("My Ministries", "PersonGroups", new { active = true }, new { @class = "btn btn-default" })
+                }
+
+            </td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        
+    </table>
+</div>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading" style="font-size:14pt;"><strong>Ministries you are waiting to get approval for</strong></div>
+        <table class="table">
+            @if (ViewBag.PendingGroups.Count == 0)
+            {
+                <th>You are not awaiting any approvals</th>
+            }
+            else
+            {
+                <th>
+                    Ministry Name
+                </th>
+                <th>
+
+                </th>
+                foreach (var item in ViewBag.PendingGroups)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Cancel Application", "SignUpCancelGroup", new { groupID = item, active = true }, new { @class = "btn btn-default" })
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+</div>
+

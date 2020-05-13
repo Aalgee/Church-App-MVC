@@ -1,0 +1,85 @@
+﻿@model IEnumerable<DataObjects.ActivityVM>
+
+
+
+<h2>@ViewBag.Title</h2>
+<h4 class="text-danger">@ViewBag.Message</h4>
+@if (User.IsInRole("Administrator"))
+{
+    if (ViewBag.IsActive)
+    {
+        <p>
+            @Html.ActionLink("Create New", "CreateActivity")
+        </p>
+        <p>
+            @Html.ActionLink("View Inactive Activities", "ActivityList", new { active = false })
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("View Active Activities", "ActivityList", new { active = true })
+        </p>
+    }
+}
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActivityTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityTypeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "ActivityDetails", new { activityID = item.ActivityID }, new { @class = "btn btn-default" })
+                @if (User.IsInRole("Administrator"))
+                {
+                    @Html.ActionLink("Edit", "EditActivity", new { activityID = item.ActivityID }, new { @class = "btn btn-default" });
+                    if (ViewBag.IsActive)
+                    {
+                        @Html.ActionLink("Deactivate", "DeactivateReactivateActivity", new { activityID = item.ActivityID }, new { @class = "btn btn-default" });
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Reactivate", "DeactivateReactivateActivity", new { activityID = item.ActivityID }, new { @class = "btn btn-default" });
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,102 @@
+﻿@model MVCPresentationLayer.Models.GroupMemberApplicantViewModel
+
+
+
+<h2>@ViewBag.Title</h2>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading" style="font-size:14pt;"><strong>@ViewBag.MemberTitle</strong></div>
+    <table class="table">
+        <tr>
+
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            @*<th>
+                Dob
+            </th>
+            <th>
+                Email
+            </th>*@
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.GroupMembers)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Dob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>*@
+
+                <td>
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>
+
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading" style="font-size:14pt;"><strong>@ViewBag.ApplicantTitle</strong></div>
+    <table class="table">
+        <tr>
+
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            @*<th>
+                Dob
+            </th>
+            <th>
+                Email
+            </th>*@
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.GroupApplicants)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Dob)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>*@
+
+            <td>
+                @Html.ActionLink("Approve", "ApproveApplicant", new { personID = item.PersonID, groupID = Model.GroupID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Deny", "DenyApplicant", new { personID = item.PersonID, groupID = Model.GroupID }, new { @class = "btn btn-default" })
+            </td>
+            </tr>
+        }
+
+    </table>
+</div>

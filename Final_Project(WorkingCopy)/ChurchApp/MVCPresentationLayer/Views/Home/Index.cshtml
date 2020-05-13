@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+    @*<img src="~/Images/revchurch.jpg" style="max-width:100%; height:auto;" />*@
+    <div class="jumbotron">
+        
+        <h1>Welcome to your Hillside Home</h1>
+        <p class="lead" id="home-jt-txt">Click on the button below in order to access your profile. if you dont have an account with us, just register. It's easy, and free!</p>
+        <p>@Html.ActionLink("Your Profile", "PersonProfile", "Profile", new { email = User.Identity.Name }, new { @class = "btn btn-primary" })</p>
+    </div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Register</h2>
+        <p>
+            All you need to do to register is follow the link below. Its easy and free.
+        </p>
+        @if (User.Identity.Name == "")
+        {
+            <p>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink", @class = "btn btn-primary" })</p>
+        }
+        else
+        {
+            <p><strong>You have already registered</strong></p>
+        }
+
+    </div>
+    <div class="col-md-4">
+        <h2>Check out our Activities</h2>
+        <p>This is where you can find out the activities we are hosting. We offer easy to access information on everything that we offer</p>
+        <p>@Html.ActionLink("Activities", "ActivityList", "Activity", null, new { @class = "btn btn-primary"})</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Ministries we support</h2>
+        <p>We support a number of ministries, with everything from a 12 step program to children ministries we have somethinf that fits you</p>
+        <p>@Html.ActionLink("Groups", "GroupsList", "Group", null, new { @class = "btn btn-primary"})</p>
+    </div>
+</div>

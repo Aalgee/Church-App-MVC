@@ -1,0 +1,145 @@
+﻿@model MVCPresentationLayer.Models.ActivityDetailsViewModel
+
+@{
+    ViewBag.Title = "Activity Details";
+}
+
+<h2>ActivityDetails</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.ActivityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.ActivityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.ActivityTypeID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.ActivityTypeID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Address1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Address1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Address2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Address2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Zip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.Start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.Start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activity.End)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activity.End)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Pastor") || User.IsInRole("Manager"))
+    {
+        @Html.ActionLink("Edit Activity", "EditActivity", new { activityID = Model.Activity.ActivityID });
+        @:|
+    }
+
+    @Html.ActionLink("Back to Activity List", "ActivityList") |
+    @Html.ActionLink("Back to My Activities", "PersonActivities")
+</p>
+@if (User.IsInRole("Administrator"))
+{
+<div class="panel panel-default">
+    <div class="panel-heading" style="font-size:14pt;"><strong>People Attending</strong></div>
+    <table class="table">
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            
+        </tr>
+
+        @foreach (var item in Model.Attendees)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(i => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.Email)
+                </td>
+                
+            </tr>
+        }
+        </table>
+</div>
+}

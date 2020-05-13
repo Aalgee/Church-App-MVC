@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DataObjects.ElectionVM>
+
+
+
+
+
+@{
+    Layout = "~/Views/Shared/_NoNavBarLayout.cshtml";
+
+
+    
+}
+
+<h2>@ViewBag.Title</h2>
+<h5 class="alert">@ViewBag.ErrorMessage</h5>
+@*<img src="~/Images/lwml.jpg" />*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    
+    
+    
+<div class="form-group">
+    <input name="delegateID" type="hidden" value="@Html.ViewBag.ElectionDelegateID" />
+    <div class="container-sm">
+        <div class="row">
+            @foreach (var election in Model)
+            {
+
+                <div class="col-md-5">
+                    <br />
+                    <h3>@Html.DisplayFor(modelItem => election.Name)</h3>
+                    <p>@Html.DisplayFor(modelItem => election.Description)</p>
+                    <br />
+
+                    @foreach (var candidate in election.Candidates)
+                    {
+                        string result = candidate.ElectionID.ToString() + candidate.CandidateID.ToString();
+                        
+                        <input type="radio" value="@candidate.CandidateID.ToString()" id="@candidate.CandidateID.ToString()" class="checkbox-lg" name="@candidate.ElectionID.ToString()" required>
+                        @*@Html.RadioButton(candidate.ElectionID.ToString() , candidate.CandidateID.ToString())*@
+                        <text>&nbsp;</text><span class="span-lg-txt">  @Html.DisplayFor(modelItem => candidate.FirstName)</span>
+
+                        <span class="span-lg-txt">@Html.DisplayFor(modelItem => candidate.LastName)</span>
+                        <br />
+
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="submit" class="btn btn-default">
+        </div>
+    </div>
+</div>
+}

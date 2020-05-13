@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DataObjects.Grant>
+
+@{
+    Layout = "~/Views/Shared/_NoNavBarLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@*@using (Html.BeginForm("Vote", "Grant", FormMethod.Post, new { onsubmit = "validateCheckedBoxes()" }))*@
+@using (Html.BeginForm())
+{
+    <input name="delegateID" type="hidden" value="@Html.ViewBag.DelegateID" />
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                <h3>@Html.DisplayNameFor(model => model.GrantName)</h3>
+            </th>
+            <th>
+                <h3>@Html.DisplayNameFor(model => model.Description)</h3>
+            </th>
+            <th>
+                <h3>@Html.DisplayNameFor(model => model.AmountAskedFor)</h3>
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h4>@Html.DisplayFor(modelItem => item.GrantName)</h4>
+                </td>
+                <td>
+                    <h4>@Html.DisplayFor(modelItem => item.Description)</h4>
+                </td>
+                <td>
+                    <h4>@Html.DisplayFor(modelItem => item.AmountAskedFor)</h4>
+                </td>
+                <td>
+                    @*@Html.CheckBox(item.GrantID.ToString(), false, new { @class = "checkbox-lg" })*@
+                    @*@Html.CheckBox(item.GrantID , new { @class = "checkbox-lg" , @value = item.GrantID, @checked = false})*@
+                    <input class="checkbox-lg" onclick="getNumberOfCheckedBoxes()" id="@item.GrantID.ToString()" name="@item.GrantID.ToString()" type="checkbox" value="@item.GrantID.ToString()" />
+                </td>
+            </tr>
+        }
+
+    </table>
+    <h4>@ViewBag.ChosenAmount1<text id="demo">0</text>@ViewBag.ChosenAmount2</h4>
+    <h5 class="alert alert-warning" id="errorMessage"></h5>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Submit Vote" onclick="return validateCheckedBoxes()" class="btn btn-default btn-lg" />
+        </div>
+    </div>
+    <script src="~/Scripts/GrantValidator.js"></script>
+
+}
+
+

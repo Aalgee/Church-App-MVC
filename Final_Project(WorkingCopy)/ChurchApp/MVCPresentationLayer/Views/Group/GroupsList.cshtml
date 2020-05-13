@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DataObjects.Group>
+
+
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+<p>
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Create New Group", "CreateGroup")
+    }
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Delete", "DeleteGroup", new { groupId = item.GroupID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("View People", "GroupPeople", new { groupId = item.GroupID }, new { @class = "btn btn-default" })
+            }
+
+        </td>
+    </tr>
+}
+
+</table>

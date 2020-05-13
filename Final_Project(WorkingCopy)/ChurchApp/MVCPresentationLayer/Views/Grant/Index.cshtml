@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DataObjects.Grant>
+
+    <h2>@ViewBag.Title</h2>
+
+<h3>@Html.ActionLink("Grant Vote", "DelegateLogin", null, new { @class = "btn btn-default" } )</h3>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h3>@ViewBag.GrantFunds</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GrantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Points)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountAskedFor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountRecieved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Points)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountAskedFor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountRecieved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.GrantID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.GrantID }) |
+            @if (item.Active)
+            {
+                @Html.ActionLink("Deactivate", "DeactivateReactivateGrant", new { id = item.GrantID })
+            }
+            else
+            {
+                @Html.ActionLink("Reactivate", "DeactivateReactivateGrant", new { id = item.GrantID })
+            }
+
+        </td>
+    </tr>
+}
+    @if (ViewBag.Active)
+    {
+        @Html.ActionLink("Show Inactive Grants", "Index", new { active = false})
+    }
+    else
+    {
+        @Html.ActionLink("Show Active Grants", "Index", new { active = true})
+    }
+</table>
